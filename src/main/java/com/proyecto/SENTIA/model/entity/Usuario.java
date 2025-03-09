@@ -21,5 +21,6 @@ public class Usuario {
     private String departamento;
     private String rol;
     private String telefono;
+    private String password;
     
 }
