@@ -22,5 +22,6 @@ public class Usuario {
     private String rol;
     private String telefono;
     private String password;
+    private String identificacion;
     
 }

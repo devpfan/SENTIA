@@ -17,6 +17,7 @@ public class UsuarioDTO {
     private String rol;
     private String telefono;
     private String password;
+    private String identificacion;
 
     public UsuarioDTO(Usuario usuario) {
         this.id = usuario.getId();
@@ -27,6 +28,7 @@ public class UsuarioDTO {
         this.rol = usuario.getRol();
         this.telefono = usuario.getTelefono();
         this.password = usuario.getPassword();
+        this.identificacion = usuario.getIdentificacion();
     }
 
     public Usuario toEntity() {
@@ -39,6 +41,7 @@ public class UsuarioDTO {
         usuario.setRol(this.rol);
         usuario.setTelefono(this.telefono);
         usuario.setPassword(this.password);
+        usuario.setIdentificacion(this.identificacion);
 
         return usuario;
 
