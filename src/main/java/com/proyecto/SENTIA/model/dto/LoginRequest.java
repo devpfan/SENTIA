@@ -1,7 +1,7 @@
 package com.proyecto.SENTIA.model.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Data
 public class LoginRequest {

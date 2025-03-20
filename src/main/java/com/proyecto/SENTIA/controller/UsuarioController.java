@@ -2,6 +2,7 @@ package com.proyecto.SENTIA.controller;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,19 +56,20 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
         logger.debug("Identificación recibida: " + loginRequest.getIdentificacion());
         logger.debug("Contraseña recibida: " + loginRequest.getPassword());
-
+    
         if (loginRequest.getIdentificacion() == null || loginRequest.getIdentificacion().isEmpty()) {
-            return ResponseEntity.status(400).body("Identificación no proporcionada");
+            return ResponseEntity.status(400).body(Map.of("error", "Identificación no proporcionada"));
         }
     
         boolean isValid = usuarioService.validarCredenciales(loginRequest);
         if (isValid) {
-            return ResponseEntity.ok("Login exitoso");
+            return ResponseEntity.ok(Map.of("mensaje", "Login exitoso"));
         }
-        return ResponseEntity.status(401).body("Credenciales incorrectas");
+        return ResponseEntity.status(401).body(Map.of("error", "Credenciales incorrectas"));
     }
+    
 
 }

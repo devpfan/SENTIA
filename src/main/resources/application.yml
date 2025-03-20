@@ -16,3 +16,9 @@ spring:
       root: INFO
       org.springframework.web: INFO
       org.springframework.web.filter.CommonsRequestLoggingFilter: INFO
+  cors:
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    allow-credentials: true
+    max-age: 3600
