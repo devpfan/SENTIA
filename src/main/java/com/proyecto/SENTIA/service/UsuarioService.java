@@ -73,6 +73,9 @@ public class UsuarioService {
 
     return Optional.empty(); 
     }
+    public Usuario actualizarUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
 
 
     public boolean changePassword(String identificacion, String oldPassword, String newPassword) {
@@ -102,6 +105,9 @@ public class UsuarioService {
     }
 
     public Optional<Usuario> findByIdentificacion(String identificacion) {
+        return usuarioRepository.findByIdentificacion(identificacion);
+    }
+    public Optional<Usuario> obtenerUsuarioPorIdentificacion(String identificacion) {
         return usuarioRepository.findByIdentificacion(identificacion);
     }
 

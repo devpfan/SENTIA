@@ -47,6 +47,12 @@ public class UsuarioController {
                 .map(usuario -> ResponseEntity.ok(new UsuarioDTO(usuario)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> obtenerUsuarioPorId(@PathVariable Long id) {
+        return usuarioService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @PostMapping("/crear")
     public ResponseEntity<UsuarioDTO> createUsuario(@RequestBody UsuarioDTO usuarioDTO) {
@@ -120,6 +126,9 @@ public class UsuarioController {
                 return ResponseEntity.status(404).body(Map.of("error", "Usuario no encontrado"));
             }
     }
+
+    //verificar despues
+
 
     
 
