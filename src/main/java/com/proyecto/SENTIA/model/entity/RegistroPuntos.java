@@ -1,7 +1,8 @@
 package com.proyecto.SENTIA.model.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,21 +14,24 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "respuestas")
-public class Respuesta {
-    
+@Table(name = "registro_puntos")
+public class RegistroPuntos {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    @Column(nullable = false)
+    private int puntos;
+
+    @Column(nullable = false)
+    private LocalDate fecha; 
+
+    @Column(nullable = false)
+    private String tipoEncuesta; 
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-    
-    @ManyToOne
-    @JoinColumn(name = "encuesta_id", nullable = false)
-    private Encuesta encuesta;
-    
-    private String respuesta;
-    private LocalDateTime fechaRespuesta = LocalDateTime.now();
+    private Usuario usuario; 
+
 }
