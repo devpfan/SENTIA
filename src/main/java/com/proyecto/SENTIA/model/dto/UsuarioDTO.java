@@ -1,5 +1,7 @@
 package com.proyecto.SENTIA.model.dto;
 
+import java.util.Base64;
+
 import com.proyecto.SENTIA.model.entity.Usuario;
 
 import lombok.Data;
@@ -18,6 +20,8 @@ public class UsuarioDTO {
     private String telefono;
     private String password;
     private String identificacion;
+    private String cargo;
+    private String foto;    
 
     public UsuarioDTO(Usuario usuario) {
         this.id = usuario.getId();
@@ -29,6 +33,8 @@ public class UsuarioDTO {
         this.telefono = usuario.getTelefono();
         this.password = usuario.getPassword();
         this.identificacion = usuario.getIdentificacion();
+        this.cargo = usuario.getCargo();
+        this.foto = usuario.getFoto() != null ? Base64.getEncoder().encodeToString(usuario.getFoto()) : null;
     }
 
     public Usuario toEntity() {
@@ -42,6 +48,8 @@ public class UsuarioDTO {
         usuario.setTelefono(this.telefono);
         usuario.setPassword(this.password);
         usuario.setIdentificacion(this.identificacion);
+        usuario.setCargo(this.cargo);
+        usuario.setFoto(this.foto != null ? Base64.getDecoder().decode(this.foto) : null);
 
         return usuario;
 
