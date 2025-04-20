@@ -146,4 +146,10 @@ public class UsuarioService {
         return false; 
     }
 
+    public Long obtenerIdPorIdentificacion(String identificacion) {
+        return usuarioRepository.findByIdentificacion(identificacion)
+                .map(Usuario::getId)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+    }
+
 }

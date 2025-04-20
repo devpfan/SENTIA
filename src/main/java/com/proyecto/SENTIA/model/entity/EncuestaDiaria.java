@@ -3,6 +3,7 @@ package com.proyecto.SENTIA.model.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,9 +27,13 @@ public class EncuestaDiaria {
     private String pregunta; 
 
     @OneToMany(mappedBy = "encuestaDiaria", cascade = CascadeType.ALL)
+    @JsonManagedReference 
     private List<OpcionRespuesta> opciones; 
 
     @Column(nullable = false)
     private LocalDate fecha;
+
+    @Column(nullable = false, length = 1)
+    private String estado;
 
 }

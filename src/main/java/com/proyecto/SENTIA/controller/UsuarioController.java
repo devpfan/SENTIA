@@ -79,9 +79,11 @@ public class UsuarioController {
         boolean isValid = usuarioService.validarCredenciales(loginRequest);
         if (isValid) {
             String rol = usuarioService.obtenerRol(loginRequest.getIdentificacion()); // Obtener el rol del usuario
+            Long id = usuarioService.obtenerIdPorIdentificacion(loginRequest.getIdentificacion()); // Obtener el ID del usuario
             return ResponseEntity.ok(Map.of(
                 "mensaje", "Login exitoso",
-                "rol", rol
+                "rol", rol,
+                "id", id.toString() // Convertir el ID a String para incluirlo en el Map
             ));
         }
         return ResponseEntity.status(401).body(Map.of("error", "Credenciales incorrectas"));
