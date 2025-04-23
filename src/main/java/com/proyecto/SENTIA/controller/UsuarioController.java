@@ -38,7 +38,14 @@ public class UsuarioController {
 
     @GetMapping("/all")
     public List<UsuarioDTO> getAllUsuarios() {
-        return usuarioService.findAll();
+        //traer usuarios sin foto
+        List<UsuarioDTO> usuarios = usuarioService.findAll();
+        /*for(UsuarioDTO usuario : usuarios) {
+            usuario.setFoto(null); 
+        }*/
+        return usuarios;
+
+        //return usuarioService.findAll();
     }
 
     @GetMapping("/info/{identificacion}")
@@ -56,16 +63,34 @@ public class UsuarioController {
 
     @PostMapping("/crear")
     public ResponseEntity<UsuarioDTO> createUsuario(@RequestBody UsuarioDTO usuarioDTO) {
-        String encodedPassword = Base64.getEncoder().encodeToString(usuarioDTO.getPassword().getBytes());
-        usuarioDTO.setPassword(encodedPassword); 
+        //String encodedPassword = Base64.getEncoder().encodeToString(usuarioDTO.getPassword().getBytes());
+        //usuarioDTO.setPassword(encodedPassword); 
         UsuarioDTO createdUsuario = usuarioService.save(usuarioDTO);
         return ResponseEntity.status(201).body(createdUsuario);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteUsuario(@PathVariable Long id) {
-        usuarioService.deleteById(id);
+    //borrar usuario(Desactivar)
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<Map<String, String>> deleteUsuario(@PathVariable Long id) {
+        try {
+            usuarioService.deleteById(id);
+            return ResponseEntity.ok(Map.of("mensaje", "Usuario desactivado con éxito"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(Map.of("error", e.getMessage()));
+        }
     }
+      
+    //activar usuario
+    @PutMapping("/reactivar/{id}")
+    public ResponseEntity<Map<String, String>> reactivarUsuario(@PathVariable Long id) {
+        boolean reactivado = usuarioService.reactivarUsuario(id);
+        if (reactivado) {
+            return ResponseEntity.ok(Map.of("mensaje", "Usuario reactivado con éxito"));
+        } else {
+            return ResponseEntity.status(404).body(Map.of("error", "Usuario no encontrado o ya está activo"));
+        }
+    }
+
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
@@ -129,8 +154,15 @@ public class UsuarioController {
             }
     }
 
-    //verificar despues
-
+    @GetMapping("/foto/{id}")
+    public ResponseEntity<Map<String, String>> obtenerFotoPorId(@PathVariable Long id) {
+        Optional<String> fotoBase64 = usuarioService.obtenerFotoPorId(id);
+        if (fotoBase64.isPresent()) {
+            return ResponseEntity.ok(Map.of("foto", fotoBase64.get()));
+        } else {
+            return ResponseEntity.status(404).body(Map.of("error", "Usuario no encontrado o no tiene foto"));
+        }
+    }
 
     
 

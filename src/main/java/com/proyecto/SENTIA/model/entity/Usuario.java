@@ -34,5 +34,6 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<RegistroPuntos> puntos;
+    private String estado;
     
 }

@@ -40,8 +40,33 @@ public class UsuarioService {
         return new UsuarioDTO(usuarioGuardado);
     }
 
-    public void deleteById(Long id){
+    
+    /*public void deleteById(Long id){
         usuarioRepository.deleteById(id);
+    }*/
+    //borrar usuario(Desactivar)
+    public void deleteById(Long id) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+            usuario.setEstado("I"); // Cambia el estado a inactivo
+            usuarioRepository.save(usuario);
+        } else {
+            throw new IllegalArgumentException("Usuario no encontrado con ID: " + id);
+        }
+    }
+
+    public boolean reactivarUsuario(Long id) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        if (usuarioOptional.isPresent()) {
+            Usuario usuario = usuarioOptional.get();
+            if ("I".equals(usuario.getEstado())) { 
+                usuario.setEstado("A"); // Cambia el estado a activo"); 
+                usuarioRepository.save(usuario);
+                return true;
+            }
+        }
+        return false; // Usuario no encontrado o ya está activo
     }
    
     public Usuario registrarUsuario(UsuarioDTO usuarioDto) {
@@ -52,10 +77,12 @@ public class UsuarioService {
         usuario.setDepartamento(usuarioDto.getDepartamento());
         usuario.setTelefono(usuarioDto.getTelefono());
         usuario.setIdentificacion(usuarioDto.getIdentificacion());
-
+        usuario.setCargo(usuarioDto.getCargo());
+        
         String encodedPassword = Base64.getEncoder().encodeToString(usuarioDto.getPassword().trim().getBytes());
         usuario.setPassword(encodedPassword);
-        
+
+        usuario.setEstado("A");//se asigna estado activo por defecto
         usuario.setRol("USER"); // Se asigna rol por defecto
         return usuarioRepository.save(usuario);
     }
@@ -144,6 +171,16 @@ public class UsuarioService {
         }
     
         return false; 
+    }
+
+    public Optional<String> obtenerFotoPorId(Long id) {
+        return usuarioRepository.findById(id)
+                .map(usuario -> {
+                    if (usuario.getFoto() != null) {
+                        return Base64.getEncoder().encodeToString(usuario.getFoto());
+                    }
+                    return null; 
+                });
     }
 
     public Long obtenerIdPorIdentificacion(String identificacion) {

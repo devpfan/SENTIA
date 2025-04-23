@@ -22,6 +22,7 @@ public class UsuarioDTO {
     private String identificacion;
     private String cargo;
     private String foto;    
+    private String estado;
 
     public UsuarioDTO(Usuario usuario) {
         this.id = usuario.getId();
@@ -34,6 +35,7 @@ public class UsuarioDTO {
         this.password = usuario.getPassword();
         this.identificacion = usuario.getIdentificacion();
         this.cargo = usuario.getCargo();
+        this.estado = usuario.getEstado();
         this.foto = usuario.getFoto() != null ? Base64.getEncoder().encodeToString(usuario.getFoto()) : null;
     }
 
@@ -49,6 +51,7 @@ public class UsuarioDTO {
         usuario.setPassword(this.password);
         usuario.setIdentificacion(this.identificacion);
         usuario.setCargo(this.cargo);
+        usuario.setEstado(this.estado);
         usuario.setFoto(this.foto != null ? Base64.getDecoder().decode(this.foto) : null);
 
         return usuario;
