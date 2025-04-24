@@ -4,9 +4,11 @@ import com.proyecto.SENTIA.model.entity.Feedback;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor 
 public class FeedbackDTO {
 
     private Long id;
@@ -18,7 +20,7 @@ public class FeedbackDTO {
 
     public FeedbackDTO(Feedback feedback) {
         this.id = feedback.getId();
-        this.usuarioId = feedback.getUsuario() !=null? feedback.getUsuario().getId():  null;
+        this.usuarioId = feedback.getUsuario() != null ? feedback.getUsuario().getId() : null;
         this.texto = feedback.getTexto();
         this.fecha = feedback.getFecha().toString();
         this.tipoId = feedback.getTipoFeedback().getId();
@@ -29,9 +31,7 @@ public class FeedbackDTO {
         Feedback feedback = new Feedback();
         feedback.setId(this.id);
         feedback.setTexto(this.texto);
-        
         feedback.setAnonimo(this.anonimo);
         return feedback;
     }
-
 }
