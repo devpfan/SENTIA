@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 public class AnalisisSentimientoDTO {
 
     private Long id;
-    private Long comentarioId;
+    private Long feedbackId;
     private Float puntuacionSentimiento;
     private String categoriaSentimiento;
 
     public AnalisisSentimientoDTO(AnalisisSentimiento analisisSentimiento) {
         this.id = analisisSentimiento.getId();
-        this.comentarioId = analisisSentimiento.getComentario().getId();
+        this.feedbackId = analisisSentimiento.getFeedback().getId();
         this.puntuacionSentimiento = analisisSentimiento.getPuntuacionSentimiento();
         this.categoriaSentimiento = analisisSentimiento.getCategoriaSentimiento();
     }

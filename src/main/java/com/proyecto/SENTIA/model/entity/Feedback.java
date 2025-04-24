@@ -13,18 +13,21 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "comentarios")
-public class Comentario {
+@Table(name = "feedback")
+public class Feedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
-    
     private String texto;
     private LocalDateTime fecha = LocalDateTime.now(); 
+    @ManyToOne
+    @JoinColumn(name = "tipo_feedback_id", nullable = false)
+    private TipoFeedback tipoFeedback;
+    private boolean anonimo;
     
 }
