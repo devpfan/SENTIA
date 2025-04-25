@@ -46,12 +46,15 @@ public class UsuarioDTO {
         usuario.setApellido(this.apellido);
         usuario.setEmail(this.email);   
         usuario.setDepartamento(this.departamento);
-        usuario.setRol(this.rol);
+        //usuario.setRol(this.rol);
         usuario.setTelefono(this.telefono);
         usuario.setPassword(this.password);
         usuario.setIdentificacion(this.identificacion);
         usuario.setCargo(this.cargo);
-        usuario.setEstado(this.estado);
+        //usuario.setEstado(this.estado);
+
+        usuario.setRol(this.rol != null ? this.rol : "USER");
+        usuario.setEstado(this.estado != null ? this.estado : "A");
         usuario.setFoto(this.foto != null ? Base64.getDecoder().decode(this.foto) : null);
 
         return usuario;

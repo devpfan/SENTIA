@@ -78,12 +78,17 @@ public class UsuarioService {
         usuario.setTelefono(usuarioDto.getTelefono());
         usuario.setIdentificacion(usuarioDto.getIdentificacion());
         usuario.setCargo(usuarioDto.getCargo());
+        usuario.setRol(usuarioDto.getRol());
+        usuario.setEstado(usuarioDto.getEstado());
+        if (usuarioDto.getFoto() != null && !usuarioDto.getFoto().isEmpty()) {
+        byte[] fotoBytes = Base64.getDecoder().decode(usuarioDto.getFoto());
+        usuario.setFoto(fotoBytes);
+        }
         
         String encodedPassword = Base64.getEncoder().encodeToString(usuarioDto.getPassword().trim().getBytes());
         usuario.setPassword(encodedPassword);
 
-        usuario.setEstado("A");//se asigna estado activo por defecto
-        usuario.setRol("USER"); // Se asigna rol por defecto
+       
         return usuarioRepository.save(usuario);
     }
 

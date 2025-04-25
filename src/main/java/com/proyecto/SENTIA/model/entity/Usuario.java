@@ -24,7 +24,7 @@ public class Usuario {
     private String apellido;
     private String email;
     private String departamento;
-    private String rol;
+
     private String telefono;
     private String password;
     private String identificacion;
@@ -34,6 +34,9 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<RegistroPuntos> puntos;
-    private String estado;
+    @Column(nullable = false)
+    private String estado = "A";
+    @Column(nullable = false)
+    private String rol = "USER";
     
 }
