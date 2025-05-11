@@ -33,7 +33,7 @@ public class FeedbackController {
 
     @PostMapping("/create")
     public FeedbackDTO createFeedback(@RequestBody FeedbackDTO feedbackDTO) {
-        return feedbackService.save(feedbackDTO);
+        return feedbackService.saveAndAnalyze(feedbackDTO);
     }
 
     @DeleteMapping("/{id}")
