@@ -126,4 +126,8 @@ public class EncuestaSemanalService {
         encuesta.setEstado("I");
         return encuestaSemanalRepository.save(encuesta);
     }
+
+    public long countEncuestasCompletadas() {
+        return respuestaSemanalRepository.count();
+    }
 }

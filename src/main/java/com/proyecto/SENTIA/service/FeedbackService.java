@@ -96,4 +96,8 @@ public class FeedbackService {
     public void deleteById(Long id) {
         feedbackRepository.deleteById(id);
     }
+
+    public long countFeedback() {
+        return feedbackRepository.count();
+    }
 }

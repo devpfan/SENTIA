@@ -194,4 +194,8 @@ public class UsuarioService {
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
     }
 
+    public long countUsuarios() {
+        return usuarioRepository.count();
+    }
+
 }
